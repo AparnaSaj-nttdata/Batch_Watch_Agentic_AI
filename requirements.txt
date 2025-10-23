@@ -1,0 +1,22 @@
+# requirements.txt
+# Core dependencies
+streamlit
+pandas
+numpy
+
+# Visualization
+plotly
+
+# ML/AI
+sentence-transformers
+scikit-learn
+
+# LangChain (minimal, no Ollama)
+langchain-core
+langchain
+
+# HTTP
+requests
+
+# Utilities
+python-dateutil
