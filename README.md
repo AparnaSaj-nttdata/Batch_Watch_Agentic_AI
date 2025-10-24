@@ -38,7 +38,7 @@ batch-watch-ai/
 │   ├── LLM.py                  # Your MyCustomLLM wrapper class
 │   ├── auth.py                 # Your authenticate() implementation
 │   └── llm_service.py          # Your llm_chat(prompt, max_tokens) function
-├── ntt_secrets.py              # NTT_ID and any other secrets (do not commit to git)
+├── .env                        # NTT_ID and any other secrets (do not commit to git)
 ├── data/
 │   └── autosys_jobs.csv        # Generated data file
 └── vector_store.pkl            # Cached knowledge base for RAG (auto-generated)
@@ -70,10 +70,10 @@ batch-watch-ai/
 
 ## 🔐 Configuration
 
-1.  **Create `ntt_secrets.py` in the project root directory:**
+1.  **Create `.env` in the project root directory:**
 
     ```python
-    # ntt_secrets.py
+    # env
     NTT_ID = "your-actual-ntt-id-here"
     NTT_SECRET = "your-actual-secret-key"
     ```
@@ -84,7 +84,7 @@ batch-watch-ai/
     ```python
     from services.LLM import MyCustomLLM
     from services.auth import authenticate
-    from ntt_secrets import NTT_ID
+    import os
 
     def llm_chat(prompt, max_tokens=4000):
         token = authenticate()
@@ -94,7 +94,7 @@ batch-watch-ai/
             # model_id="cc5bab32-9ccf-472b-9d76-91fc2ec5b047", # GPT-4o-mini
             model_id="6c26a584-a988-4fed-92ea-f6501429fab9", # GPT-4o
             # model_id="a4022a51-2f02-4ba7-8a31-d33c7456b58e", # Gemini 2.5 Flash
-            ID=NTT_ID,
+            ID=os.environ.get(NTT_ID),
             max_tokens=max_tokens
         )
         return llm._call(prompt)
@@ -196,7 +196,7 @@ The application will open in your default web browser, typically at `http://loca
 ## 🔒 Security
 
 -   **Never commit secrets to version control.** Add the following files to your `.gitignore`:
-    -   `ntt_secrets.py`
+    -   `.env`
     -   `services/auth.py`
     -   `vector_store.pkl`
 -   Tokens are retrieved on each call, not stored long-term in the application state.
