@@ -11,7 +11,7 @@ dist/
 build/
 
 # Secrets
-ntt_secrets.py
+.env
 
 # Data
 data/*.csv

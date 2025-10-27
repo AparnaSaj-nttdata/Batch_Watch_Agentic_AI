@@ -1,7 +1,10 @@
 
 import requests
-from ntt_secrets import NTT_ID, NTT_SECRET
+import os
+from dotenv import load_dotenv
 
+
+load_dotenv()
 def authenticate():
     '''
     return token after authentication request
@@ -13,8 +16,8 @@ def authenticate():
     }
     data = {
         # Create a new file ntt_secrets.py and put your own credentials there
-        "id": NTT_ID,
-        "secret": NTT_SECRET
+        "id": os.getenv("NTT_ID"),
+        "secret": os.getenv("NTT_SECRET")
     }
 
     try:    
