@@ -38,7 +38,7 @@ batch-watch-ai/
 │   ├── LLM.py                  # Your MyCustomLLM wrapper class
 │   ├── auth.py                 # Your authenticate() implementation
 │   └── llm_service.py          # Your llm_chat(prompt, max_tokens) function
-├── ntt_secrets.py              # NTT_ID and any other secrets (do not commit to git)
+├── .env                        # NTT_ID and any other secrets (do not commit to git)
 ├── data/
 │   └── autosys_jobs.csv        # Generated data file
 └── vector_store.pkl            # Cached knowledge base for RAG (auto-generated)
@@ -70,10 +70,10 @@ batch-watch-ai/
 
 ## 🔐 Configuration
 
-1.  **Create `ntt_secrets.py` in the project root directory:**
+1.  **Create `.env` in the project root directory:**
 
     ```python
-    # ntt_secrets.py
+    # .env
     NTT_ID = "your-actual-ntt-id-here"
     NTT_SECRET = "your-actual-secret-key"
     ```
@@ -84,7 +84,7 @@ batch-watch-ai/
     ```python
     from services.LLM import MyCustomLLM
     from services.auth import authenticate
-    from ntt_secrets import NTT_ID
+    from dotenv import load_dotenv
 
     def llm_chat(prompt, max_tokens=4000):
         token = authenticate()
@@ -166,19 +166,6 @@ The application will open in your default web browser, typically at `http://loca
 ---
 
 ## 🧪 Quick Tests
-
--   **Validate Authentication**:
-
-    ```bash
-    python -c "from services.auth import authenticate; print(f'Token received: {authenticate()[:50]}...')"
-    ```
-
--   **Validate LLM Connection**:
-
-    ```bash
-    python -c "from services.llm_service import llm_chat; print(llm_chat('Say hello in one sentence', 100))"
-    ```
-
 -   **Validate Analytics Engine (in a Python shell)**:
 
     ```python
@@ -196,7 +183,7 @@ The application will open in your default web browser, typically at `http://loca
 ## 🔒 Security
 
 -   **Never commit secrets to version control.** Add the following files to your `.gitignore`:
-    -   `ntt_secrets.py`
+    -   `.env`
     -   `services/auth.py`
     -   `vector_store.pkl`
 -   Tokens are retrieved on each call, not stored long-term in the application state.
@@ -255,7 +242,7 @@ The application will open in your default web browser, typically at `http://loca
 
 ## ✅ Quick Start Summary
 
-1.  Configure `ntt_secrets.py` and `services/auth.py`.
+1.  Configure `.env` and `services/auth.py`.
 2.  Install dependencies: `pip install -r requirements.txt`
 3.  Generate sample data: `python data_generator.py`
 4.  Launch the app: `streamlit run app.py`
